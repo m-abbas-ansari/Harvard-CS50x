@@ -1,34 +1,32 @@
-#include <cs50.h>
 #include <stdio.h>
+#include <cs50.h>
 
 int main(void)
 {
-    int n;
-    while(true)
-    {
-        n= get_int("Height: ");
-        if(n>0 && n<9)
+        int n;
+        do
         {
-            break;
-        }
-    }
-    int p = n;
-    for( int i = 0 ; i < p; i++)
-    {
-        for(int j = 1; j < n; j++)
-        {
-            printf(" ");
-        }
-        for(int k =0; k<=i; k++)
-        {
-            printf("#");
-        }
-        printf("  ");
-        for(int m = 0; m<=i ; m++ )
-        {
-            printf("#");
-        }
+            n = get_int("Height: ");
+        }while(n<1);
         printf("\n");
-        n--;
-    }
+        int k = n-1;
+        for (int i = 0; i<n; i++)
+        {
+            for(int j = 1; j<k+1; j++)
+            {
+                printf(" ");
+            }
+            for(int l = 0; l<n-k; l++)
+            {
+                printf("#");
+            }
+            printf(" ");
+            for(int l = 0; l<n-k; l++)
+            {
+                printf("#");
+            }
+            
+            printf("\n");
+            k--;
+        }
 }
