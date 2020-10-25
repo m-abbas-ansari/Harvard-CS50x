@@ -8,6 +8,10 @@ int main(void)
         cg = get_float("How much change is owed? ")*100;
     }while(cg<0 || cg == 0.00);
     int n = cg;
+    if( (cg - n)>0.5)
+    {
+        n++;
+    }
     int a,b,c,p,q,r,s;
     a = n%25;
     p = (n-a)/25;
