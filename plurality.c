@@ -54,7 +54,7 @@ int main(int argc, string argv[])
         name = get_string("Vote: ");
 
         // Check for invalid vote
-        while(!vote(name))
+        while (!vote(name))
         {
             printf("Invalid vote.\n");
             name = get_string("Vote: ");
@@ -69,9 +69,9 @@ int main(int argc, string argv[])
 // Update vote totals given a new vote
 bool vote(string name)
 {
-     for (int i = 0; i < candidate_count; i++)
-     {
-        if(strcmp(name, candidates[i].name) == 0)
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (strcmp(name, candidates[i].name) == 0)
         {
             candidates[i].votes++;
             return true;
@@ -84,18 +84,18 @@ bool vote(string name)
 void print_winner(void)
 {
     int k = 0;
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(k < candidates[i].votes)
+        if (k < candidates[i].votes)
         {
             k = candidates[i].votes;
         }
     }
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(k == candidates[i].votes)
+        if (k == candidates[i].votes)
         {
-            printf("%s\n",candidates[i].name );
+            printf("%s\n", candidates[i].name);
         }
     }
 
