@@ -171,7 +171,7 @@ bool print_winner(void)
     }
     for(int i = 0; i < candidate_count; i++)
     {
-        if(candidates[i].votes >= half && !candidates[i].eliminated)  //checking if candidate has half of majority
+        if(candidates[i].votes > half && !candidates[i].eliminated)  //checking if candidate has half of majority
         {
             printf("%s\n", candidates[i].name);
             return true;
