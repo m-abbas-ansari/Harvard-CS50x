@@ -130,7 +130,7 @@ bool vote(int voter, int rank, string name)
 {
     for (int i = 0; i < candidate_count; i++)
     {
-        if(strcmp(name, candidates[i].name) == 0)
+        if (strcmp(name, candidates[i].name) == 0)
         {
             preferences[voter][rank] = i;
             return true;
@@ -161,17 +161,17 @@ bool print_winner(void)
 {
     int half;
     //Calculating half of the vote
-    if(voter_count%2 == 0)
+    if (voter_count % 2 == 0)
     {
-        half = voter_count/2;
+        half = voter_count / 2;
     }
     else
     {
-        half = (voter_count+1)/2;
+        half = (voter_count + 1) / 2;
     }
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(candidates[i].votes > half && !candidates[i].eliminated)  //checking if candidate has half of majority
+        if (candidates[i].votes > half && !candidates[i].eliminated) //checking if candidate has half of majority
         {
             printf("%s\n", candidates[i].name);
             return true;
@@ -184,9 +184,9 @@ bool print_winner(void)
 int find_min(void)
 {
     int k = MAX_VOTERS;
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(!candidates[i].eliminated && candidates[i].votes < k)
+        if (!candidates[i].eliminated && candidates[i].votes < k)
         {
             k = candidates[i].votes;
         }
@@ -197,7 +197,7 @@ int find_min(void)
 // Return true if the election is tied between all candidates, false otherwise
 bool is_tie(int min)
 {
-    if(min == (voter_count/candidate_count))
+    if (min == (voter_count / candidate_count))
     {
         return true;
     }
@@ -210,9 +210,9 @@ bool is_tie(int min)
 // Eliminate the candidate (or candidates) in last place
 void eliminate(int min)
 {
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(!candidates[i].eliminated && candidates[i].votes == min)
+        if (!candidates[i].eliminated && candidates[i].votes == min)
         {
             candidates[i].eliminated = true;
         }
