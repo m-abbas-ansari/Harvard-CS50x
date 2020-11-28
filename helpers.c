@@ -85,6 +85,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     int count, sumr, sumg, sumb;
+    int countmax = 0;
     for (int i = 0 ; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -142,7 +143,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 count++;
             }
             //bottom of centre
-            if(((i + 1) < height) && ((j >= 0)))
+            if(((i + 1) < height) && (j >= 0))
             {
                 sumr = sumr + image[i+1][j].rgbtRed;
                 sumg = sumg + image[i+1][j].rgbtGreen;
@@ -161,6 +162,13 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             image[i][j].rgbtRed = round((float)sumr/(float)count);
             image[i][j].rgbtGreen = round((float)sumg/(float)count);
             image[i][j].rgbtBlue = round((float)sumb/(float)count);
+            if(countmax < count)
+            {
+                countmax = count;
+                printf("Count = %i (i,j) = (%i,%i)\n ",countmax, i, j);
+            }
+            
         }
     }
+    printf("Max Count: %i \n", countmax);
 }
