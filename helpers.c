@@ -162,13 +162,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             image[i][j].rgbtRed = round((float)sumr/(float)count);
             image[i][j].rgbtGreen = round((float)sumg/(float)count);
             image[i][j].rgbtBlue = round((float)sumb/(float)count);
-            if(countmax < count)
-            {
-                countmax = count;
-                printf("Count = %i (i,j) = (%i,%i)\n ",countmax, i, j);
-            }
+            
             
         }
     }
-    printf("Max Count: %i \n", countmax);
+    
 }
