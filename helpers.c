@@ -7,11 +7,11 @@
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
     float k;
-    for(int i = 0 ; i < height; i++)
+    for (int i = 0 ; i < height; i++)
     {
-        for(int j = 0; j < width; j++)
+        for (int j = 0; j < width; j++)
         {
-            k = ((float)image[i][j].rgbtBlue + (float)image[i][j].rgbtGreen + (float)image[i][j].rgbtRed)/3;
+            k = ((float)image[i][j].rgbtBlue + (float)image[i][j].rgbtGreen + (float)image[i][j].rgbtRed) / 3;
             image[i][j].rgbtBlue = round(k);
             image[i][j].rgbtGreen = round(k);
             image[i][j].rgbtRed = round(k);
@@ -50,18 +50,18 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
     int mid;
-    if(width % 2 == 0)
+    if (width % 2 == 0)
     {
-        mid = width/2;
+        mid = width / 2;
     }
     else
     {
-        mid = (width + 1)/2;
+        mid = (width + 1) / 2;
     }
 
-    for(int i = 0; i < height ; i++)
+    for (int i = 0; i < height ; i++)
     {
-        for(int j = 0; j < mid; j++)
+        for (int j = 0; j < mid; j++)
         {
             //swapping rgb values of pixels symmetrically in each row
             int tr, tg, tb;
@@ -70,13 +70,13 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
             tg = image[i][j].rgbtGreen;
             tb = image[i][j].rgbtBlue;
 
-            image[i][j].rgbtRed = image[i][width - (j+1)].rgbtRed;
-            image[i][j].rgbtGreen = image[i][width - (j+1)].rgbtGreen;
-            image[i][j].rgbtBlue = image[i][width - (j+1)].rgbtBlue;
-
-            image[i][width - (j+1)].rgbtRed = tr;
-            image[i][width - (j+1)].rgbtGreen = tg;
-            image[i][width - (j+1)].rgbtBlue = tb;
+            image[i][j].rgbtRed = image[i][width - (j + 1)].rgbtRed;
+            image[i][j].rgbtGreen = image[i][width - (j + 1)].rgbtGreen;
+            image[i][j].rgbtBlue = image[i][width - (j + 1)].rgbtBlue;
+ 
+            image[i][width - (j + 1)].rgbtRed = tr;
+            image[i][width - (j + 1)].rgbtGreen = tg;
+            image[i][width - (j + 1)].rgbtBlue = tb;
         }
     }
 }
@@ -95,78 +95,78 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             sumg = image[i][j].rgbtGreen;
             sumb = image[i][j].rgbtBlue;
             //top left of centre
-            if(((i - 1) >= 0) && ((j - 1) >= 0))
+            if (((i - 1) >= 0) && ((j - 1) >= 0))
             {
-                sumr = sumr + image[i-1][j-1].rgbtRed;
-                sumg = sumg + image[i-1][j-1].rgbtGreen;
-                sumb = sumb + image[i-1][j-1].rgbtBlue;
+                sumr = sumr + image[i - 1][j - 1].rgbtRed;
+                sumg = sumg + image[i - 1][j - 1].rgbtGreen;
+                sumb = sumb + image[i - 1][j - 1].rgbtBlue;
                 count++;
             }
             //top of centre
-            if(((i - 1) >= 0) && ((j >= 0)))
+            if (((i - 1) >= 0) && ((j >= 0)))
             {
-                sumr = sumr + image[i-1][j].rgbtRed;
-                sumg = sumg + image[i-1][j].rgbtGreen;
-                sumb = sumb + image[i-1][j].rgbtBlue;
+                sumr = sumr + image[i - 1][j].rgbtRed;
+                sumg = sumg + image[i - 1][j].rgbtGreen;
+                sumb = sumb + image[i - 1][j].rgbtBlue;
                 count++;
             }
             //top right of centre
-            if(((i - 1) >= 0) && ((j + 1) < width))
+            if (((i - 1) >= 0) && ((j + 1) < width))
             {
-                sumr = sumr + image[i-1][j+1].rgbtRed;
-                sumg = sumg + image[i-1][j+1].rgbtGreen;
-                sumb = sumb + image[i-1][j+1].rgbtBlue;
+                sumr = sumr + image[i - 1][j + 1].rgbtRed;
+                sumg = sumg + image[i - 1][j + 1].rgbtGreen;
+                sumb = sumb + image[i - 1][j + 1].rgbtBlue;
                 count++;
             }
             //left of centre
-            if(((i >= 0) && ((j - 1) >= 0)))
+            if (((i >= 0) && ((j - 1) >= 0)))
             {
-                sumr = sumr + image[i][j-1].rgbtRed;
-                sumg = sumg + image[i][j-1].rgbtGreen;
-                sumb = sumb + image[i][j-1].rgbtBlue;
+                sumr = sumr + image[i][j - 1].rgbtRed;
+                sumg = sumg + image[i][j - 1].rgbtGreen;
+                sumb = sumb + image[i][j - 1].rgbtBlue;
                 count++;
             }
             //right of centre
-            if(((i >= 0) && ((j + 1) < width)))
+            if (((i >= 0) && ((j + 1) < width)))
             {
-                sumr = sumr + image[i][j+1].rgbtRed;
-                sumg = sumg + image[i][j+1].rgbtGreen;
-                sumb = sumb + image[i][j+1].rgbtBlue;
+                sumr = sumr + image[i][j + 1].rgbtRed;
+                sumg = sumg + image[i][j + 1].rgbtGreen;
+                sumb = sumb + image[i][j + 1].rgbtBlue;
                 count++;
             }
             //bottom left of centre
-            if(((i + 1) < height) && ((j - 1) >= 0))
+            if (((i + 1) < height) && ((j - 1) >= 0))
             {
-                sumr = sumr + image[i+1][j-1].rgbtRed;
-                sumg = sumg + image[i+1][j-1].rgbtGreen;
-                sumb = sumb + image[i+1][j-1].rgbtBlue;
+                sumr = sumr + image[i + 1][j - 1].rgbtRed;
+                sumg = sumg + image[i + 1][j - 1].rgbtGreen;
+                sumb = sumb + image[i + 1][j - 1].rgbtBlue;
                 count++;
             }
             //bottom of centre
-            if(((i + 1) < height) && (j >= 0))
+            if (((i + 1) < height) && (j >= 0))
             {
-                sumr = sumr + image[i+1][j].rgbtRed;
-                sumg = sumg + image[i+1][j].rgbtGreen;
-                sumb = sumb + image[i+1][j].rgbtBlue;
+                sumr = sumr + image[i + 1][j].rgbtRed;
+                sumg = sumg + image[i + 1][j].rgbtGreen;
+                sumb = sumb + image[i + 1][j].rgbtBlue;
                 count++;
             }
             //bottom right of centre
-            if(((i + 1) < height) && ((j + 1) < width))
+            if (((i + 1) < height) && ((j + 1) < width))
             {
-                sumr = sumr + image[i+1][j+1].rgbtRed;
-                sumg = sumg + image[i+1][j+1].rgbtGreen;
-                sumb = sumb + image[i+1][j+1].rgbtBlue;
+                sumr = sumr + image[i + 1][j + 1].rgbtRed;
+                sumg = sumg + image[i + 1][j + 1].rgbtGreen;
+                sumb = sumb + image[i + 1][j + 1].rgbtBlue;
                 count++;
             }
 
-            n_image[i][j].rgbtRed = round((float)sumr/(float)count);
-            n_image[i][j].rgbtGreen = round((float)sumg/(float)count);
-            n_image[i][j].rgbtBlue = round((float)sumb/(float)count);
+            n_image[i][j].rgbtRed = round((float)sumr / (float)count);
+            n_image[i][j].rgbtGreen = round((float)sumg / (float)count);
+            n_image[i][j].rgbtBlue = round((float)sumb / (float)count);
         }
     }
-    for(int i = 0; i < height; i++)
+    for (int i = 0; i < height; i++)
     {
-        for(int j = 0; j < width; j++)
+        for (int j = 0; j < width; j++)
         {
             image[i][j].rgbtRed = n_image[i][j].rgbtRed;
             image[i][j].rgbtGreen = n_image[i][j].rgbtGreen;
