@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
         }
     
     }
-    printf("We're Here\n");
     fclose(read);
     return 0;
 }
