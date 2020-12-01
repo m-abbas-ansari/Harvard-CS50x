@@ -39,9 +39,11 @@ int main(int argc, char *argv[])
         {
             fread(b, sizeof(BYTE), 512, read);
         }
-
+    
     }
-
+    printf("We're Here\n");
+    fclose(read);
+    return 0;
 }
 
 void crtjpg(BYTE b[], FILE* f)
@@ -64,7 +66,7 @@ void crtjpg(BYTE b[], FILE* f)
     FILE *write = fopen(fname, "w");
     fwrite(b, sizeof(BYTE), 512, write);
     fread(b, sizeof(BYTE), 512, f);
-    while(!((b[0] == 0xff) && (b[1] == 0xd8) && (b[2] == 0xff) && ((b[3] >= 0xe0) && (b[3] <= 0xef))))
+    while(!((b[0] == 0xff) && (b[1] == 0xd8) && (b[2] == 0xff) && ((b[3] >= 0xe0) && (b[3] <= 0xef)))&&(!feof(f)))
     {
         fwrite(b, sizeof(BYTE), 512, write);
         fread(b, sizeof(BYTE), 512, f);
