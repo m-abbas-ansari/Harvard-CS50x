@@ -50,15 +50,15 @@ void crtjpg(BYTE b[], FILE* f)
     char* fname =  malloc(13);
     if(fcount < 10)
     {
-        sprintf(fname, "00%i.jpeg", fcount);
+        sprintf(fname, "00%i.jpg", fcount);
     }
     else if((fcount > 9) && (fcount < 100))
     {
-        sprintf(fname, "0%i.jpeg", fcount);
+        sprintf(fname, "0%i.jpg", fcount);
     }
     else if(fcount > 99)
     {
-        sprintf(fname, "%i.jpeg", fcount);
+        sprintf(fname, "%i.jpg", fcount);
     }
     
     fcount++;
