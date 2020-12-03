@@ -35,14 +35,18 @@ bool check(const char *word)
     int h;
     h = hash(word); //computing hash code
     node *tmp = NULL;
-    //accessing  and traversing linked list at hash table index h
-    for(tmp = table[h]; tmp != NULL; tmp = tmp->next )
-    {
-        k = strcasecmp((tmp->word),word);
-        if(k == 0)
+    
+    if(table[h] != NULL) //Checking if linked list exists at h
+    {   
+        //accessing  and traversing linked list at hash table index h
+        for(tmp = table[h]; tmp != NULL; tmp = tmp->next )
         {
+            k = strcasecmp((tmp->word),word);
+            if(k == 0)
+            {
             
-            return true;
+                return true;
+            }
         }
         
     }
@@ -74,21 +78,27 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
+    //Cleaning hash table so as to load data into it
+    for(int i = 0; i < N; i++)
+    {
+        table[i] = NULL;
+    }
+    
+    //Opening dictionary file
      FILE *read = fopen(dictionary, "r");
      if(read == NULL)
      {
          printf("File did not open succesfully\n");
          return false;
      }
+     //string to store word form dictionary
      char *wrd = malloc((LENGTH + 1)*sizeof(char));
      if(wrd == NULL)
      {
          return false;
      }
-     while(!feof(read))
+     while(fscanf(read, "%s",wrd) != EOF)
      {
-        //storing word after reading it from dictionary
-        fscanf(read, "%s", wrd);
         count++; //incrementing word count
 
         //Creating a node
@@ -112,7 +122,7 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    return count - 1;
+    return count;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
@@ -123,21 +133,26 @@ bool unload(void)
     //iterating through hash table
     for(int i = 0; i < N; i++)
     {
-
-        cursor = table[i];
-
-        //iterating and freeing linked list at hash table index i
-        while((cursor->next) != NULL && (cursor !=NULL))
+        if(table[i] != NULL)
         {
-
-            tmp = cursor;
-            cursor = cursor->next;
-            free(tmp);
+            cursor = table[i];
+            //iterating and freeing linked list at hash table index i
+            while((cursor->next) != NULL)
+            {
+                tmp = cursor;
+                cursor = cursor->next;
+                free(tmp);
+            }
+            if(cursor != NULL)
+            {
+            free(cursor);
+            }   
         }
-        if(cursor != NULL)
-        {
-        free(cursor);
-        }
+    }
+    //Clearing hash table
+    for(int i = 0; i < N; i++)
+    {
+        table[i] = NULL;
     }
     return true;
 }
