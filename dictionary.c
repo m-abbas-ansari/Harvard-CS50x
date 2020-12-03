@@ -127,14 +127,17 @@ bool unload(void)
         cursor = table[i];
 
         //iterating and freeing linked list at hash table index i
-        while((cursor->next) != NULL)
+        while((cursor->next) != NULL && (cursor !=NULL))
         {
 
             tmp = cursor;
             cursor = cursor->next;
             free(tmp);
         }
+        if(cursor != NULL)
+        {
         free(cursor);
+        }
     }
     return true;
 }
