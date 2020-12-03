@@ -36,24 +36,19 @@ bool check(const char *word)
     h = hash(word); //computing hash code
     node *tmp = NULL;
     
-    if(table[h] != NULL) //Checking if linked list exists at h
+    if (table[h] != NULL) //Checking if linked list exists at h
     {   
         //accessing  and traversing linked list at hash table index h
-        for(tmp = table[h]; tmp != NULL; tmp = tmp->next )
+        for (tmp = table[h]; tmp != NULL; tmp = tmp->next)
         {
-            k = strcasecmp((tmp->word),word);
-            if(k == 0)
+            k = strcasecmp((tmp->word), word);
+            if (k == 0)
             {
-            
                 return true;
             }
         }
-        
     }
     return false;
-
-
-
 }
 
 // Hashes word to a number
@@ -63,47 +58,47 @@ unsigned int hash(const char *word)
     //source: http://www.cse.yorku.ca/~oz/hash.html
 
     unsigned long hash = 5381;
-    int c ,n;
+    int c, n;
     n = strlen(word);
 
-    for(int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         c = tolower(word[i]);
         hash = ((hash << 5) + hash) + c;
     }
 
-    return hash%N;
-}
+    return hash % N;
+} 
 
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
     //Cleaning hash table so as to load data into it
-    for(int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
         table[i] = NULL;
     }
     
     //Opening dictionary file
-     FILE *read = fopen(dictionary, "r");
-     if(read == NULL)
-     {
-         printf("File did not open succesfully\n");
-         return false;
-     }
-     //string to store word form dictionary
-     char *wrd = malloc((LENGTH + 1)*sizeof(char));
-     if(wrd == NULL)
-     {
-         return false;
-     }
-     while(fscanf(read, "%s",wrd) != EOF)
-     {
+    FILE *read = fopen(dictionary, "r");
+    if (read == NULL)
+    {
+        printf("File did not open succesfully\n");
+        return false;
+    }
+    //string to store word form dictionary
+    char *wrd = malloc((LENGTH + 1) * sizeof(char));
+    if (wrd == NULL)
+    {
+        return false;
+    }
+    while (fscanf(read, "%s", wrd) != EOF)
+    {
         count++; //incrementing word count
 
         //Creating a node
         node *n = malloc(sizeof(node));
-        if(n == NULL)
+        if (n == NULL)
         {
             return false;
         }
@@ -131,26 +126,26 @@ bool unload(void)
     node *tmp = NULL;
     node *cursor = NULL;
     //iterating through hash table
-    for(int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
-        if(table[i] != NULL)
+        if (table[i] != NULL)
         {
             cursor = table[i];
             //iterating and freeing linked list at hash table index i
-            while((cursor->next) != NULL)
+            while ((cursor->next) != NULL)
             {
                 tmp = cursor;
                 cursor = cursor->next;
                 free(tmp);
             }
-            if(cursor != NULL)
+            if (cursor != NULL)
             {
-            free(cursor);
+                free(cursor);
             }   
         }
     }
     //Clearing hash table
-    for(int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
         table[i] = NULL;
     }
